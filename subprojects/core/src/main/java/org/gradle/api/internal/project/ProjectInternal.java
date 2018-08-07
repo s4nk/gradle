@@ -23,7 +23,9 @@ import org.gradle.api.UnknownProjectException;
 import org.gradle.api.attributes.Attribute;
 import org.gradle.api.internal.DomainObjectContext;
 import org.gradle.api.internal.GradleInternal;
+import org.gradle.api.internal.ProcessOperations;
 import org.gradle.api.internal.artifacts.configurations.DependencyMetaDataProvider;
+import org.gradle.api.internal.file.FileOperations;
 import org.gradle.api.internal.file.FileResolver;
 import org.gradle.api.internal.file.HasFileOperations;
 import org.gradle.api.internal.initialization.ClassLoaderScope;
@@ -45,7 +47,9 @@ import org.gradle.util.Path;
 import javax.annotation.Nullable;
 
 @UsedByScanPlugin
-public interface ProjectInternal extends Project, ProjectIdentifier, HasFileOperations, DomainObjectContext, DependencyMetaDataProvider, ModelRegistryScope, PluginAwareInternal {
+public interface ProjectInternal extends Project, ProjectIdentifier, HasFileOperations, DomainObjectContext, DependencyMetaDataProvider, ModelRegistryScope, PluginAwareInternal,
+    // These two are here to work around https://github.com/gradle/gradle/issues/6027
+    FileOperations, ProcessOperations {
 
     // These constants are defined here and not with the rest of their kind in HelpTasksPlugin because they are referenced
     // in the ‘core’ modules, which don't depend on ‘plugins’ where HelpTasksPlugin is defined.

@@ -42,6 +42,7 @@ import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.file.ConfigurableFileTree;
 import org.gradle.api.file.CopySpec;
 import org.gradle.api.file.DeleteSpec;
+import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.FileTree;
 import org.gradle.api.initialization.dsl.ScriptHandler;
 import org.gradle.api.internal.ClosureBackedAction;
@@ -1417,5 +1418,25 @@ public class DefaultProject extends AbstractPluginAware implements ProjectIntern
 
     private void assertMutatingMethodAllowed(String methodName) {
         getProjectConfigurator().assertCrossProjectConfigurationAllowed(methodName, this);
+    }
+
+    // These are here just so that ProjectInternal can implement FileOperations to work around https://github.com/gradle/gradle/issues/6027
+
+    @Override
+    @Deprecated
+    public ConfigurableFileCollection configurableFiles() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
+    public ConfigurableFileCollection configurableFiles(Object... paths) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    @Deprecated
+    public FileCollection immutableFiles(Object... paths) {
+        throw new UnsupportedOperationException();
     }
 }
