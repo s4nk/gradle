@@ -16,8 +16,10 @@
 
 package org.gradle.integtests.composite
 
+import org.gradle.integtests.fixtures.timeout.IntegrationTestTimeout
 import org.gradle.launcher.continuous.Java7RequiringContinuousIntegrationTest
 
+@IntegrationTestTimeout(120)
 class CompositeContinuousBuildIntegrationTest extends Java7RequiringContinuousIntegrationTest {
     def setup() {
         buildTestFixture.withBuildInSubDir()
